@@ -10,7 +10,7 @@ body {
 }
 
 #container {
-    width:1100px;
+    width:1200px;
     background-color: black;
     /* height:1000px; */
     margin:0 auto;
@@ -18,7 +18,7 @@ body {
 
 #nav {
     height: 150px;
-    width: 1100px;
+    width: 1200px;
     /* background-color:red; */
     display: inline-block;
 }
@@ -51,7 +51,7 @@ body {
 }
 
 #navBar {
-    width: 1000px;
+    /* width: 1000px; */
     height: 50px;
     /* background-color:green; */
     margin-top: 90px;
@@ -65,15 +65,16 @@ ul {
 
 ul li {
     float: left;
-    padding: 11px;
+    padding: 10px;
     font-size: 18px;
     margin-left: 0px;
+
 
 }
 
 ul li a {
     text-decoration: none;
-    padding: 11px;
+    padding: 10px;
     color: white;
 }
 
@@ -85,7 +86,7 @@ ul li:hover {
 
  #parent {
     height: 610px;
-    width: 1100px;
+    width: 1200px;
     position:relative;
 	margin:auto;
   }
@@ -140,7 +141,7 @@ ul li:hover {
   }
   #backImg{
   height:610px;
-  width:900px;
+  width:1000px;
     background-image:url("../images/demo.jpg") ;
 	background-size:cover;
 	float:left;
@@ -175,55 +176,44 @@ ul li:hover {
 .imgText {
     background-color: black;
     color: white;
-    padding: 5px 15px 5px 65px;
+    padding: 5px 10px 5px 65px;
 }
 
 #imgText1 {
     font-size: 45px;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    margin-left: 250px;
+    margin-left: 360px;
 }
 
 #imgText2 {
     font-size: 30px;
     margin-top: 30px;
-    margin-left: 550px;
+    margin-left: 570px;
 }
 
 
+
 #storyMainDiv {
-    height: 435px;
-    width: 1320px;
+    /* height: 435px; */
+    width: 1120px;
     background-color: rgb(221 217 206);
     margin-top: 10px;
     padding: 40px;
+    
 }
 
 .story {
     height: 420px;
-    width: 438.3px;
+    width: 370px;
     /* background-color:red; */
     float: left;
     /* border-right:1px solid grey; */
 }
-
-#story1Div {
-    padding: 15px;
-    border-right: 1px solid grey;
+.cardBody{
+    padding: 10px;
+    float: left;
 }
 
-#story2Div {
-    padding: 15px;
-    border-right: 1px solid grey;
-}
-
-#story3Div {
-    padding: 15px;
-}
-
-#story3 {
-    border: none;
-}
 
 #storyImg {
     margin-top: 15px;
@@ -232,44 +222,50 @@ ul li:hover {
 
 #storyDivText {
     margin-top: 17px;
-    line-height: 35px;
-    font-size: 20px;
-    /* text-align: justify; */
+    line-height: 30px;
+    font-size: 19px;
+    text-align: justify;
 }
-
+/* #story2{
+    border:1px solid gray;
+    border-top: none;
+    border-bottom: none;
+} */
 #btn {
     padding: 8px 15px;
     background-color: black;
     color: white;
-    margin-left: 300px;
+    margin-left: 250px;
     border: none;
     cursor: pointer;
 }
 
+
+
 #mission {
     height: 150px;
-    width: 1400px;
+    width: 1200px;
     background-color: #101010;
     display: inline-block;
 }
 
 #Ourmission1 {
-    width: 200px;
+    width: 130px;
     float: left;
-    font-size: 20px;
-    padding: 20px 0px 10px 70px;
+    font-size: 15px;
+    padding: 20px 0px 10px 50px;
     color: white;
     /* background-color:red; */
 }
 
 #Ourmission2 {
-    width: 980px;
+    width: 1000px;
     float: right;
     /* background-color:red; */
     color: grey;
     line-height: 22px;
-    padding: 20px 0 0 35px;
-    margin-right: 100px;
+    padding: 10px 0 0 20px;
+    /* margin-right: 100px; */
 
 }
 
@@ -279,15 +275,15 @@ ul li:hover {
 }
 
 #month {
-    width: 1400px;
-    height: 270px;
+    width: 1200px;
+    /* height: 270px; */
     background-color: #080808;
     /* margin-top:20px; */
 }
 
 .monthDiv {
     height: 270px;
-    width: 400px;
+    width: 360px;
     /* background-color:green; */
     float: left;
     margin: 20px 20px 0px 20px;
@@ -340,9 +336,13 @@ ul li:hover {
 #monthBtn3 {
     background-color: #2ec4b6;
 }
+#StoryImgTag{
+    height: 156px;
+    width: 345px;
+}
 
 #footer {
-    width: 1400px;
+    width: 1200px;
     display: inline-block;
     background-color: black;
 }
@@ -389,13 +389,13 @@ ul li:hover {
 
 #footNavMain {
     height: 50px;
-    width: 1400px;
+    width: 1200px;
     /* background-color:green; */
 }
 
 #footNav {
     /* height:30px; */
-    width: 830px;
+    /* width: 830px; */
     /* background-color:blue; */
     float: left;
     padding: 0px 10px 0px 30px;
