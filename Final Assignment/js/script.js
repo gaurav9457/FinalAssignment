@@ -9,6 +9,9 @@ window.onclick = function (e) {
     if (e.target == display || e.target == displayRegister) {
         display.style.display = "none";
         displayRegister.style.display = 'none';
+		validate.resetForm();
+		document.getElementById("Username").value="";
+        document.getElementById("Password").value="";
 
     }
 }
@@ -31,8 +34,6 @@ function LoginObjMain() {
             document.getElementById("RegisterLink").innerHTML = "REGISTER";
 			document.getElementById("RegisterLink").style.color="white";
 			},2500);
-            
-
         }
         else {
             console.log("script");
@@ -84,20 +85,26 @@ function ValidationFormMain() {
     this.inputErrorDisplay = inputErrorDisplay;
     this.loginAuth=loginAuth;
 	this.alertDisplay=alertDisplay;
+	
 
     function validationForm() {
         let fname = document.getElementById("fname").value;
         let lname = document.getElementById("lname").value;
+
         let gender = document.querySelector('input[name="gender"]:checked');
         let mobile = document.getElementById("mobile").value;
         let dob = document.getElementById("dob").value;
         let age = document.getElementById("age").value;
+		let email=document.getElementById("email").value;
+		let password = document.getElementById("password").value;
+		let confirmPassword = document.getElementById("confirmPassword").value;
         let city = document.getElementById("city").value;
         let addressArea = document.getElementById("addressArea").value;
         let checkboxes = document.querySelectorAll('input[name="Skills"]:checked');
+		let pincode = document.getElementById("pincode").value;
 		 let dateValidationResult = isValidDate(dob);
         // let dateValidationResult = isValidDate(dob);
-
+          //console.log("gender");
         let pattern = /^[a-zA-Z]{1,15}$/;
         let num = /\d/;
         let count = /\d{10}$/;
@@ -147,6 +154,19 @@ function ValidationFormMain() {
         else if (mobile == "") {
             alertDisplay("Please enter mobile number");
         }
+		else if(email==""){
+		    alertDisplay("Please enter email id");
+		}
+		else if(!email.match("^[a-zA-Z]{2}[a-zA-Z0-9-.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+"))
+		{
+		    alertDisplay("Please enter proper email id");
+		}
+		else if(password==""||confirmPassword==""){
+		   alertDisplay("Please enter password");
+		}
+		else if(!checkPassword()){
+		    alertDisplay("Passwords are not same, keep it same");
+		}
         else if (addressArea == "") {
             alertDisplay("Please enter address it is mandatory");
         }
@@ -169,6 +189,13 @@ function ValidationFormMain() {
         else if (city == "") {
             alertDisplay("Please select city");
         }
+		else if(pincode==""){
+		    alertDisplay("Please enter pincode");
+		}
+		else if(!pincode.match("^[1-9]{1}[0-9]{2}[0-9]{3}$")){
+		    alertDisplay("Please enter correct pincode");
+		}
+
         else if (checkboxes.length === 0) {
             document.getElementById("checkboxError").innerHTML = "Please select at least one skill";
         }
@@ -246,6 +273,8 @@ function ValidationFormMain() {
 
     }
 
+
+
     function resetForm() {
 			let x=document.getElementById('formObj').reset();
 		
@@ -263,15 +292,37 @@ function ValidationFormMain() {
 		
     }
 
+	
+    
     function inputErrorDisplay(e) {
         let err = document.getElementById(e.name + "Error");
         let dobvalidate = /\d{1,2}\/\d{1,2}\/\d{4}/;
         //let pattern=/^[a-zA-Z]{1,15}$/;
+		//console.log("e",event.keyCode);
         if (e.id == "fname" || e.id == "lname") {
-            if (e.value.match("[^a-zA-Z]")) {
-                err.innerHTML = "Error Name Not Contain number";
+            if (e.value.match("[^a-zA-Z]{2,15}$")) {
 				
+                err.innerHTML = "Error Name Not Contain number and spaces";
+				//e.value.length-1;
             }
+				else if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 33 && event.keyCode <= 47) 
+					||(event.keyCode >= 58 && event.keyCode <= 64) || (event.keyCode >= 91 && event.keyCode <= 96) 
+					||(event.keyCode >= 123 && event.keyCode <= 126) ||(event.keyCode==32))
+		      {
+			     event.preventDefault();
+				  err.innerHTML = "Error Name Not Contain number and spaces";
+			
+		      }
+			  else if(event.target.value.length>16){
+			     event.preventDefault();
+				  err.innerHTML = "Excceds the limit";
+			  }
+			
+			
+			else if(e.value.length>15){
+			 err.innerHTML = "Error Name not exceeds the limit";
+			 
+			}
 
             else {
                 err.innerHTML = "&nbsp;";
@@ -300,8 +351,77 @@ function ValidationFormMain() {
             }
 
         }
+		else if(e.id=="mobile"){
+			if((event.keyCode >=65 && event.keyCode<= 90) || (event.keyCode >= 97 && event.keyCode <=122 ) ||(event.keyCode==32)
+				|| (event.keyCode > 31) && (event.keyCode < 48 || event.keyCode > 57))
+				{
+                 event.preventDefault();
+				err.innerHTML ="Mobile number contain only numbers";
+			
+			}
+			else if(!e.value.match("^[6-9][0-9]{9}")){
+				
+			    err.innerHTML ="Enter proper mobile number";
+				
+			}
+			
+			else{
+			 err.innerHTML = "&nbsp;";
+			}
+		
+		}
+		else if(e.id=="email"){
+			if(!e.value.match("^[a-zA-Z]{2}[a-zA-Z0-9-.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+")){
+			   err.innerHTML ="Enter proper Email id";
+			}
+			else{
+			 err.innerHTML = "&nbsp;";
+			}
+		
+		}
+		else if(e.id=="password"){
+		    if(!e.value.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8, 20}$")){
+			  err.innerHTML = "Password contains at least 8 character,one capital,one special character";
+			}
+			else if(e.value.length>16){
+			err.innerHTML = "Password was only up to 15 character";
+			}
+					
+			else{
+			 err.innerHTML = "&nbsp;";
+			}
+		}
+		else if(e.id=="confirmPassword"){
+		    if(!checkPassword()){
+			  err.innerHTML = "Password mismatch";
+			}
+			else{
+			err.innerHTML = "&nbsp;";
+			}
+		}
+		else if(e.id=="pincode"){
+			console.log("pincode",e.value);
+		   if(!e.value.match("^[1-9]{1}[0-9]{2}[0-9]{3}$")){
+		   err.innerHTML = "Enter correct pincode";
+		   }
+		   else if(e.value.length>6){
+		   err.innerHTML = "Pincode only contains 6 numbers";
+		   }
+		   else{
+		   err.innerHTML = "&nbsp;";
+		   }
+		}
 
     }
+
+	function checkPassword(){
+	      let password = document.getElementById("password").value;
+		 let confirmPassword = document.getElementById("confirmPassword").value;
+		 if(password==confirmPassword){
+		    return true;
+		 }
+
+	}
 
 	 function loginAuth(btn) {
         var Username = "Gaurav";
@@ -318,6 +438,9 @@ function ValidationFormMain() {
             document.getElementById("RegisterLink").innerHTML ="welcome "+inpUsername;
             document.getElementById("RegisterLink").style.color="#2ec4b6";
         }
+		else if(inpUsername=="" || inpPassword==""){
+		alertDisplay("Please enter user name and password");
+		}
         else {
             alertDisplay("User not found Login again");
         }
