@@ -54,7 +54,7 @@ body {
 #navBar {
     /* width: 1000px; */
     /* height: 50px; */
-    background-color:green;
+    /* background-color:green; */
     margin-top: 90px;
     /* margin-left: 100px; */
 	/* float:right; */
@@ -604,6 +604,15 @@ color:black;
 	overflow-x:none;
 
   }
+  ::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fbc226; 
+  border-radius: 10px;
+}
+
   .starColor{
   color:red;
   }
@@ -634,7 +643,7 @@ select option{
 background-color:#af934b;
 }
   ::placeholder {
-    color: rgb(226, 225, 225);
+    color: #AAD7D9;
     
   }
   .lableColor{
@@ -660,7 +669,7 @@ background-color:#af934b;
   border:1px solid white;
   }
   #btn-div{
-  margin-left:25%;
+  margin-left:30%;
   }
   #submit{
   background-color:green;
@@ -724,7 +733,7 @@ background-color:#af934b;
     color: black;
   }
   
-  #progressBar {
+  #progressBar,#progressBarLogin ,#progressBarlogout{
     width: 200px;
     height: 5px;
     background: white;
@@ -748,3 +757,42 @@ background-color:#af934b;
     padding: 0px;
     /* display: none; */
   }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 50px;
+    margin-top: 20px;
+
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(odd) {
+    background-color:#fbc226;
+  }  
+tr:nth-child(even) {
+    background-color: #74f8f8;
+  }
+  tr:hover{
+    background-color: #575652;
+    color: white;
+  }
+th {
+    background-color: #f2f2f2;
+}
+#TablePage{
+    background-color:black;
+    height: 100vh;
+    width: 1200px;
+    position: fixed;
+    top: 0; 	
+    display: none;
+
+}
+#tableButton{
+    cursor: pointer;
+    /* position: absolute;
+    top:600px; */
+}
