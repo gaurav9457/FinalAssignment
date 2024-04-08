@@ -43,10 +43,7 @@
 					<li><a href="#">NEWS & PRESS</a></li>
 					<li><a href="#">CONTACT</a></li>
 					<li><a href="#" onclick="loginObj.register()" id="RegisterLink">REGISTER</a></li>
-					<li><a href="#" onclick="loginObj.login()" id="LoginLink">LOGIN</a></li>
-					
-					
-					
+					<li><a href="#" onclick="loginObj.login()" id="LoginLink">LOGIN</a></li>					
 					
 					<!-- <li style="clear:both"></li> -->
 				
@@ -393,7 +390,7 @@
 						<div id="mobileError" class="errorDiv">&nbsp;</div>
 
 						<label for="email" class="lableColor">Email-id <span class="starColor">*</span>: </label> <br>
-						<input type="email" name="email" id="email" class="inpformat" onkeypress="validate.inputErrorDisplay(this)" placeholder="example@gmail.com"/>
+						<input type="email" name="email" id="email" class="inpformat" onkeydown="validate.inputErrorDisplay(this)" placeholder="example@gmail.com"/>
 						<div id="emailError" class="errorDiv">&nbsp;</div>
 
 						<label for="password" class="lableColor">Password <span class="starColor">*</span>: </label> <br>
@@ -415,7 +412,7 @@
 						<div id="cityDiv" class="">
 							<label for="city" class="lableColor">City <span class="starColor">*</span>: </label>
 							<br>
-							<select name="city" id="city">
+							<select name="city" id="city" onclick="validate.state()">
 								<option value="">Select city</option>
 								<option value="Pune">Pune</option>
 								<option value="Mumbai">Mumbai</option>
@@ -427,6 +424,18 @@
 							</select>
 
 						</div>
+						<label for="state" class="lableColor">State <span class="starColor">*</span>: </label>
+							<br>
+							<select name="state" id="state"disabled onclick="">
+								<option value="" >Select state</option>
+								<option value="Maharashtra">Maharashtra</option>
+								<option value="Gujrat">Gujrat</option>
+								<option value="Madhypradesh">Madhypradesh</option>
+								<!-- <option value="Jalgaon">Jalgaon</option>
+								<option value="Surat">Surat</option>
+								<option value="Nagpur">Nagpur</option> -->
+
+							</select>
 						<label for="pincode" class="lableColor">pincode <span class="starColor">*</span>: </label> <br>
 						<input type="text" name="pincode" id="pincode" class="inpformat" oninput="validate.inputErrorDisplay(this)" placeholder="411062"/>
 						<div id="pincodeError" class="errorDiv">&nbsp;</div>
@@ -533,6 +542,7 @@
 						   <th>Password</th>
 						   <th>Address Area</th>
 						   <th>City</th>
+						   <th>State</th>
 						   <th>Pincode</th>
 						   <th>Courses</th>
 					   </tr>
