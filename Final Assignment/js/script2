@@ -181,14 +181,14 @@ function ValidationFormMain() {
 		else if(email==""){
 		    alertDisplay("Please enter email id");
 		}
-		else if(!email.match("^[a-zA-Z]{2}[a-zA-Z0-9-.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+"))
+		else if(!email.match("^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{2})?)$"))
 		{
 		    alertDisplay("Please enter proper email id");
 		}
 		else if(password==""||confirmPassword==""){
 		   alertDisplay("Please enter password");
 		}
-        else if(!password.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,20}$")){
+        else if(password.match("^(?=.*[A-Za-z])(?=.*\d).{8,15}$")){
            alertDisplay("Password must contain at least 8 characters, one capital letter, one digit, and one special character");
         }
 		else if(!checkPassword()){
@@ -435,6 +435,7 @@ function ValidationFormMain() {
 
         let err = document.getElementById(e.name + "Error");
         let dobvalidate = /\d{1,2}\/\d{1,2}\/\d{4}/;
+        let passwardExp= /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
         //let pattern=/^[a-zA-Z]{1,15}$/;
 
 		//console.log("e",keyCode);
@@ -504,6 +505,11 @@ function ValidationFormMain() {
                 err.innerHTML = "Please enter numbers only";
                 return;
             }
+            if (e.value.length > 10) {
+                e.value = e.value.substring(0, 10); 
+               // err.innerHTML = "";
+                return;
+            }
 			         
               else  if (!dobvalidate.test(e.value)) {
                     err.innerHTML = "Please enter a valid date of birth in the format dd/mm/yyyy";
@@ -558,7 +564,8 @@ function ValidationFormMain() {
 		}
 		else if(e.id=="email"){
            // let emailValidREgexp=/(^[a-zA-Z]{2}[a-zA-Z0-9-.]*@[a-z]+([.][a-zA-Z]{2}))/;
-           let validEmailid=/(^[a-z][a-z0-9\.]+[@][a-z]+[.][a-z]{2})/g;
+           let validEmailid=/^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{2})?)$/g;
+          //let validEmailid=/^[a-z]{2}[a-zA-Z0-9]*([.]{1}[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.][a-zA-Z]+)+$/;
 
            let email_id = document.getElementById(e.id);
            if (event.keyCode==32) {
@@ -570,10 +577,11 @@ function ValidationFormMain() {
             if(email==" "){
                 err.innerHTML ="Email id can not contain space";
             }
-           else  if(!e.value.match(validEmailid)){
+           else  if(!validEmailid.test(e.value)){
                
 			   err.innerHTML ="Enter proper Email id";
 			}
+            
 
 			else{
 			 err.innerHTML = "&nbsp;";
@@ -601,7 +609,7 @@ function ValidationFormMain() {
                 err.innerHTML = "Password can only contain 15 characters";
                 return;
             }
-            if (!e.value.match("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,15}$")) {
+            if (!e.value.match(passwardExp)) {
                 err.innerHTML = "Password must contain at length 8 to 15,one capital letter,one digit,and one special character";
             }
            
@@ -653,10 +661,10 @@ function ValidationFormMain() {
     }
 	
 	function state(){
-	let city = document.getElementById("city").value;
-	if(city !=""){
-	   let state = document.getElementById("state");
-	   state.disabled=false;
+	let state = document.getElementById("state").value;
+	if(state !=""){
+	   let city = document.getElementById("city");
+	   city.disabled=false;
 	}
 	}
 
