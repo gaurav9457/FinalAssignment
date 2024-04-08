@@ -408,11 +408,22 @@
 							style="margin:10px;width:400px;" oninput="validate.inputErrorDisplay(this)"></textarea>
 						<div id="addressAreaError" class="errorDiv"></div>
 
+						<label for="state" class="lableColor">State <span class="starColor">*</span>: </label>
+						<select name="state" id="state" onclick="validate.state()">
+							<option value="" >Select state</option>
+							<option value="Maharashtra">Maharashtra</option>
+							<option value="Gujrat">Gujrat</option>
+							<option value="Madhypradesh">Madhypradesh</option>
+							<!-- <option value="Jalgaon">Jalgaon</option>
+							<option value="Surat">Surat</option>
+							<option value="Nagpur">Nagpur</option> -->
+
+						</select>
 
 						<div id="cityDiv" class="">
 							<label for="city" class="lableColor">City <span class="starColor">*</span>: </label>
 							<br>
-							<select name="city" id="city" onclick="validate.state()">
+							<select name="city" id="city"  disabled>
 								<option value="">Select city</option>
 								<option value="Pune">Pune</option>
 								<option value="Mumbai">Mumbai</option>
@@ -424,18 +435,9 @@
 							</select>
 
 						</div>
-						<label for="state" class="lableColor">State <span class="starColor">*</span>: </label>
+						
 							<br>
-							<select name="state" id="state"disabled onclick="">
-								<option value="" >Select state</option>
-								<option value="Maharashtra">Maharashtra</option>
-								<option value="Gujrat">Gujrat</option>
-								<option value="Madhypradesh">Madhypradesh</option>
-								<!-- <option value="Jalgaon">Jalgaon</option>
-								<option value="Surat">Surat</option>
-								<option value="Nagpur">Nagpur</option> -->
-
-							</select>
+							
 						<label for="pincode" class="lableColor">pincode <span class="starColor">*</span>: </label> <br>
 						<input type="text" name="pincode" id="pincode" class="inpformat" oninput="validate.inputErrorDisplay(this)" placeholder="411062"/>
 						<div id="pincodeError" class="errorDiv">&nbsp;</div>
