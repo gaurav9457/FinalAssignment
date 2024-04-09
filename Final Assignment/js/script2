@@ -181,14 +181,14 @@ function ValidationFormMain() {
 		else if(email==""){
 		    alertDisplay("Please enter email id");
 		}
-		else if(!email.match("^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{2,4}([.][a-z]{1,2})?)$"))
+		else if(!email.match("^(^[a-z0-9][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{2,4}([.][a-z]{1,2})?)$"))
 		{
 		    alertDisplay("Please enter correct email id");
 		}
 		else if(password==""||confirmPassword==""){
 		   alertDisplay("Please enter password");
 		}
-        else if(!password.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/)){
+        else if(!password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,20}$/)){
            alertDisplay("Password must contain at least 9 characters, one capital letter, one digit, and one special character");
         }
 		else if(!checkPassword()){
@@ -211,7 +211,7 @@ function ValidationFormMain() {
 		}
 
         else if (!(age > 17 && age < 70)) {
-            alertDisplay("Your age was not eligible for register");
+            alertDisplay("Your age was not eligible for register, Age must be greater than 18 years");
         }
         else if (city == "") {
             alertDisplay("Please select city");
@@ -433,7 +433,8 @@ function ValidationFormMain() {
         let err = document.getElementById(e.name + "Error");
         let dobvalidate = /\d{1,2}\/\d{1,2}\/\d{4}/;
        // let passwardExp= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,15}$/;
-	   let passwardExp=/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/;
+	  // let passwardExp=/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/; 
+        let passwardExp =/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{9,15}$/; 
 
         //let pattern=/^[a-zA-Z]{1,15}$/;
 
@@ -565,7 +566,7 @@ function ValidationFormMain() {
 		}
 		else if(e.id=="email"){
            // let emailValidREgexp=/(^[a-zA-Z]{2}[a-zA-Z0-9-.]*@[a-z]+([.][a-zA-Z]{2}))/;
-           let validEmailid=/^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{1,2})?)$/g;
+           let validEmailid=/^(^[a-z0-9][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{1,2})?)$/g;
           //let validEmailid=/^[a-z]{2}[a-zA-Z0-9]*([.]{1}[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.][a-zA-Z]+)+$/;
 
            let email_id = document.getElementById(e.id);
@@ -634,8 +635,8 @@ function ValidationFormMain() {
             });
 		}
 		else if(e.id=="pincode"){
-			if (/[a-zA-Z]/.test(e.value)) {
-                e.value = e.value.replace(/[a-zA-Z]/g, ''); 
+			if (/[a-zA-Z\W]/.test(e.value)) {
+                e.value = e.value.replace(/[a-zA-Z\W]/g, ''); 
                 err.innerHTML = "Please enter numbers only";
                 return;
             }
