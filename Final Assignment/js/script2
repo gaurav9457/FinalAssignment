@@ -181,15 +181,15 @@ function ValidationFormMain() {
 		else if(email==""){
 		    alertDisplay("Please enter email id");
 		}
-		else if(!email.match("^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{2})?)$"))
+		else if(!email.match("^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{2,4}([.][a-z]{1,2})?)$"))
 		{
-		    alertDisplay("Please enter proper email id");
+		    alertDisplay("Please enter correct email id");
 		}
 		else if(password==""||confirmPassword==""){
 		   alertDisplay("Please enter password");
 		}
-        else if(password.match("^(?=.*[A-Za-z])(?=.*\d).{8,15}$")){
-           alertDisplay("Password must contain at least 8 characters, one capital letter, one digit, and one special character");
+        else if(!password.match(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/)){
+           alertDisplay("Password must contain at least 9 characters, one capital letter, one digit, and one special character");
         }
 		else if(!checkPassword()){
 		    alertDisplay("Passwords are not same, keep it same");
@@ -268,7 +268,7 @@ function ValidationFormMain() {
             };
 
             storedArray.push(storedObj);
-			//localStorage.setItem("formData",JSON.stringify(storedArray));
+			
           
            setTimeout( function(){loginObj.closePopup()},2500);
            setTimeout( function(){loginObj.displayTable()},2500);
@@ -282,10 +282,7 @@ function ValidationFormMain() {
     }
 
     function generateTable() {
-		// let data=localStorage.getItem("formData")? localStorage.getItem("formData") : [];
-		  // let formData=JSON.parse(data);
-		            //console.log("formData",formData);
-
+		
 
         var tbody = document.getElementById("Tablebody");
         
@@ -405,8 +402,8 @@ function ValidationFormMain() {
             document.getElementById("addressArea").value="";
             document.getElementById("mobile").value="";
            // document.querySelectorAll('input[name="Skills"]:checked')
-		   let state=document.getElementById("state");
-            state.disabled=true;
+		   let city=document.getElementById("city");
+            city.disabled=true;
 			let ageInp = document.getElementById("age");
 			ageInp.disabled=true;
 
@@ -435,7 +432,9 @@ function ValidationFormMain() {
 
         let err = document.getElementById(e.name + "Error");
         let dobvalidate = /\d{1,2}\/\d{1,2}\/\d{4}/;
-        let passwardExp= /^(?=.*[A-Za-z])(?=.*\d).{8,15}$/;
+       // let passwardExp= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,15}$/;
+	   let passwardExp=/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/;
+
         //let pattern=/^[a-zA-Z]{1,15}$/;
 
 		//console.log("e",keyCode);
@@ -449,7 +448,8 @@ function ValidationFormMain() {
                 (event.keyCode >= 58 && event.keyCode <= 64) ||
                 (event.keyCode >= 91 && event.keyCode <= 96) ||
                 (event.keyCode >= 123 && event.keyCode <= 126) || 
-                (event.keyCode >= 96 && event.keyCode <= 105)||
+                (event.keyCode >= 96 && event.keyCode <= 105)|| 
+				event.keyCode >= 186 && event.keyCode <= 192 || event.keyCode >= 219 && event.keyCode <= 222 ||
                 event.keyCode == 32 )
              {
                 event.preventDefault();
@@ -475,7 +475,8 @@ function ValidationFormMain() {
                 (event.keyCode >= 58 && event.keyCode <= 64) ||
                 (event.keyCode >= 91 && event.keyCode <= 96) ||
                 (event.keyCode >= 123 && event.keyCode <= 126) || 
-                (event.keyCode >= 96 && event.keyCode <= 105)||
+                (event.keyCode >= 96 && event.keyCode <= 105)|| 
+				event.keyCode >= 186 && event.keyCode <= 192 || event.keyCode >= 219 && event.keyCode <= 222 ||
                 event.keyCode == 32 )
              {
                 event.preventDefault();
@@ -548,7 +549,7 @@ function ValidationFormMain() {
 			}
 			else if(!e.value.match("^[6-9][0-9]{8}")){
 				
-			    err.innerHTML ="Enter proper mobile number";
+			    err.innerHTML ="Enter correct mobile number";
 				
 			}
 			
@@ -564,7 +565,7 @@ function ValidationFormMain() {
 		}
 		else if(e.id=="email"){
            // let emailValidREgexp=/(^[a-zA-Z]{2}[a-zA-Z0-9-.]*@[a-z]+([.][a-zA-Z]{2}))/;
-           let validEmailid=/^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{2})?)$/g;
+           let validEmailid=/^(^[a-z][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{1,2})?)$/g;
           //let validEmailid=/^[a-z]{2}[a-zA-Z0-9]*([.]{1}[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.][a-zA-Z]+)+$/;
 
            let email_id = document.getElementById(e.id);
@@ -579,7 +580,7 @@ function ValidationFormMain() {
             }
            else  if(!validEmailid.test(e.value)){
                
-			   err.innerHTML ="Enter proper Email id";
+			   err.innerHTML ="Enter correct Email id";
 			}
             
 
@@ -610,7 +611,7 @@ function ValidationFormMain() {
                 return;
             }
             if (!e.value.match(passwardExp)) {
-                err.innerHTML = "Password must contain at length 8 to 15,one capital letter,one digit,and one special character";
+                err.innerHTML = "Password must contain at length 9 to 15,one capital letter,one digit,and one special character";
             }
            
             else {
