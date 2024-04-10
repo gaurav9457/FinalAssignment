@@ -4,14 +4,16 @@ let displayRegister = document.getElementById("Formcontainer");
 let loginDiv = document.getElementById("popupChildMain");
 let formObj = document.getElementById("formObj");
 var tablePage=document.getElementById("TablePage");
-
+var profileIcon= document.getElementById("profileIcon");
+var alertBoxLogoutParent=document.getElementById("alertBoxLogoutParent");
 var logBtnName;
 window.onclick = function (e) {
 
-    if (e.target == display || e.target == displayRegister || e.target == tablePage) {
+    if (e.target == display || e.target == displayRegister || e.target == tablePage || e.target == alertBoxLogoutParent) {
         display.style.display = "none";
         displayRegister.style.display = 'none';
         tablePage.style.display = 'none';
+		alertBoxLogoutParent.style.display = 'none';
 		validate.resetForm();
 		document.getElementById("Username").value="";
         document.getElementById("Password").value="";
@@ -32,17 +34,21 @@ function LoginObjMain() {
     this.closePopup = closePopup;
     this.register = register;
     this.displayTable=displayTable;
+	this.profileIcon=profileIcon;
+	this.logout=logout;
+	this.cancel=cancel;
 
     function login() {
         var LoginLink = document.getElementById("LoginLink").innerHTML;
 
         if (LoginLink == "LOGOUT") {
             validate.alertDisplayLogout("Logging out");
-            setTimeout(function(){
-			document.getElementById("LoginLink").innerHTML = "LOGIN";
-            document.getElementById("RegisterLink").innerHTML = "REGISTER";
-			document.getElementById("RegisterLink").style.color="white";
-			},2000);
+            //setTimeout(function(){
+			//document.getElementById("LoginLink").innerHTML = "LOGIN";
+           // document.getElementById("RegisterLink").innerHTML = "REGISTER";
+			//document.getElementById("RegisterLink").style.color="white";
+			//document.getElementById("profileIcon").style.display='none';
+			//},2000);
         }
         else {
             console.log("script");
@@ -74,6 +80,23 @@ function LoginObjMain() {
         }
         
     }
+	function profileIcon(){
+	  displayTable() ;
+	}
+	function cancel(){
+	  document.getElementById("alertBoxLogout").style.display = 'none';
+	  document.getElementById("alertBoxLogoutParent").style.display = 'none';
+	}
+
+	function logout(){
+		   
+	        document.getElementById("LoginLink").innerHTML = "LOGIN";
+            document.getElementById("RegisterLink").innerHTML = "REGISTER";
+			document.getElementById("RegisterLink").style.color="white";
+			document.getElementById("profileIcon").style.display='none';
+			document.getElementById("alertBoxLogout").style.display = 'none';
+			document.getElementById("alertBoxLogoutParent").style.display = 'none';
+	}
 
     function displayTable() {
         
@@ -105,7 +128,7 @@ function ValidationFormMain() {
     this.alertDisplayLogout=alertDisplayLogout;
     this.checkPassword=checkPassword;
 	this.state=state;
-	
+	this.loginValidation=loginValidation;
 
     function validationForm() {
         let fname = document.getElementById("fname").value;
@@ -172,6 +195,10 @@ function ValidationFormMain() {
                 alertDisplay("Date of birth should be before the year 2024");
                 
         }
+		 else if (dateValidationResult === "minor") {
+                    err.innerHTML = "You are not able to register, your age was less than 18 years";
+                    
+                }
         else if (mobile == "") {
             alertDisplay("Please enter mobile number");
         }
@@ -181,14 +208,14 @@ function ValidationFormMain() {
 		else if(email==""){
 		    alertDisplay("Please enter email id");
 		}
-		else if(!email.match("^(^[a-z0-9][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{2,4}([.][a-z]{1,2})?)$"))
+		else if(!email.match("^(^[a-z0-9][a-z0-9]*([._][a-z0-9]+)*[@][a-z]+[.][a-z]{2,4}([.][a-z]{1,2})?)$"))
 		{
 		    alertDisplay("Please enter correct email id");
 		}
 		else if(password==""||confirmPassword==""){
 		   alertDisplay("Please enter password");
 		}
-        else if(!password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,20}$/)){
+        else if(!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/)){
            alertDisplay("Password must contain at least 9 characters, one capital letter, one digit, and one special character");
         }
 		else if(!checkPassword()){
@@ -327,8 +354,15 @@ function ValidationFormMain() {
             return "futureDate";
         }
 
-        calculateAge(day, month, year);
+		let age=calculateAge(day, month, year);
+
+       // calculateAge(day, month, year);
+	   if (age < 18)
+	   {
+		   return "minor";
+	   }
         return true;
+
     }
 
 
@@ -349,7 +383,8 @@ function ValidationFormMain() {
 
         ageInp.value = age;
 		ageInp.disabled=true;
-        // return age;
+
+         return age;
     }
 
     function alertDisplay(msg) {
@@ -375,14 +410,11 @@ function ValidationFormMain() {
     }
 
     function alertDisplayLogout(msg) {
-        document.getElementById("alertBoxLogout").style.display = 'block';
-        document.getElementById("alertBoxLogout").style.background = "linear-gradient(to right, #f12711, #f5af19)";
-        document.getElementById("msglogout").innerHTML = msg;
-        document.getElementById("progressBarlogout").style.animation = 'progress 3s 1 ease-in-out';
-        setTimeout(function () {
-            document.getElementById("alertBoxLogout").style.display = 'none';
-        }, 2000);
-
+		document.getElementById("alertBoxLogoutParent").style.display = 'block';
+        document.getElementById("alertBoxLogout").style.display = 'block';     
+        document.getElementById("msglogout").innerHTML = "YOU WANT TO LOGOUT ?";
+        document.getElementById("progressBarlogout").style.animation = 'progress 3s infinite ease-in-out';
+  
     }
 
 
@@ -422,8 +454,7 @@ function ValidationFormMain() {
     errorDiv.forEach(function(item){
        item.innerHTML="&nbsp;";
     });
-      
-		
+      		
     }
 
 	
@@ -434,7 +465,7 @@ function ValidationFormMain() {
         let dobvalidate = /\d{1,2}\/\d{1,2}\/\d{4}/;
        // let passwardExp= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,15}$/;
 	  // let passwardExp=/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/; 
-        let passwardExp =/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{9,15}$/; 
+        let passwardExp =/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,15}$/; 
 
         //let pattern=/^[a-zA-Z]{1,15}$/;
 
@@ -529,6 +560,10 @@ function ValidationFormMain() {
                     err.innerHTML = "Date of birth should be before the year 2024";
                     
                 }
+				 else if (dateValidationResult === "minor") {
+                    err.innerHTML = "You are not able to register, your age was less than 18 years";
+                    
+                }
                 else {
                     err.innerHTML = "&nbsp;";
                 }
@@ -566,7 +601,7 @@ function ValidationFormMain() {
 		}
 		else if(e.id=="email"){
            // let emailValidREgexp=/(^[a-zA-Z]{2}[a-zA-Z0-9-.]*@[a-z]+([.][a-zA-Z]{2}))/;
-           let validEmailid=/^(^[a-z0-9][a-z0-9]*(\.[a-z0-9]+)*[@][a-z]+[.][a-z]{1,4}([.][a-z]{1,2})?)$/g;
+           let validEmailid=/^(^[a-z0-9][a-z0-9]*([._][a-z0-9]+)*[@][a-z]+[.][a-z]{2,4}([.][a-z]{1,2})?)$/g;
           //let validEmailid=/^[a-z]{2}[a-zA-Z0-9]*([.]{1}[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.][a-zA-Z]+)+$/;
 
            let email_id = document.getElementById(e.id);
@@ -603,6 +638,9 @@ function ValidationFormMain() {
                 err.innerHTML = "Please enter numbers only";
                 return;
             }
+			else if(e.value <18){
+			      err.innerHTML="Not able to register, Your age is less than 18";
+			}
 
         }
 		else if(e.id=="password"){
@@ -611,8 +649,8 @@ function ValidationFormMain() {
                 err.innerHTML = "Password can only contain 15 characters";
                 return;
             }
-            if (!e.value.match(passwardExp)) {
-                err.innerHTML = "Password must contain at length 9 to 15,one capital letter,one digit,and one special character";
+            if (!e.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/)) {
+                err.innerHTML = "Password must contain at length 8 to 15,one capital letter,one digit,and one special character";
             }
            
             else {
@@ -679,9 +717,33 @@ function ValidationFormMain() {
  
 	}
 
+	function loginValidation(e){
+		 let err = document.getElementById(e.name + "Error");
+		  if(e.id=="Username"){  
+	        if (/[a-zA-Z\W]/.test(e.value)) {
+                e.value = e.value.replace(/[a-zA-Z\W]/g, ''); 
+                err.innerHTML = "Please enter numbers only";
+                return;
+            }
+			else{
+			 err.innerHTML = "&nbsp";
+			}
+		  }
+		  else if(e.id=="Password"){
+		   if (e.value.length > 14) {
+              err.innerHTML = "Please enter upto 15 characters ";
+		  }
+		  else{
+		  err.innerHTML = "&nbsp;";
+		  }
+		  }
+
+	
+	}
+
 	 function loginAuth(btn) {
-        var Username = "gaurav@gmail.com";
-        var password = "Gaurav@1234";
+        var Username = "8459";
+        var password = "1234";
         var inpUsername = document.getElementById("Username").value;
         var inpPassword = document.getElementById("Password").value;
         var LoginLink = document.getElementById("LoginLink").innerHTML;
@@ -691,8 +753,10 @@ function ValidationFormMain() {
         if (Username == inpUsername && password == inpPassword) {
             loginObj.closePopup();
             document.getElementById("LoginLink").innerHTML = "LOGOUT";
-            document.getElementById("RegisterLink").innerHTML ="Welcome Gaurav";
-            document.getElementById("RegisterLink").style.color="#2ec4b6";
+            document.getElementById("RegisterLink").innerHTML ="All USERS";
+           
+			 document.getElementById("profileIcon").style.display="block";
+			 document.getElementById("loginName").innerHTML =`<sup>Welcome ${inpUsername}</sup>`;
         }
 		else if(inpUsername=="" || inpPassword==""){
             alertDisplayLogin("Please enter user name and password");
