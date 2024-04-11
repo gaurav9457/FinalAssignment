@@ -719,15 +719,17 @@ function ValidationFormMain() {
 
 	function loginValidation(e){
 		 let err = document.getElementById(e.name + "Error");
+         let pattern=/^[a-zA-Z0-9_@.]{8,20}$/;
+         
 		  if(e.id=="Username"){  
-	        if (/[a-zA-Z\W]/.test(e.value)) {
-                e.value = e.value.replace(/[a-zA-Z\W]/g, ''); 
-                err.innerHTML = "Please enter numbers only";
-                return;
+            if (!/^[a-zA-Z0-9_@.]{8,20}$/.test(e.value)) {
+                err.innerHTML = "Please enter alphanumeric characters, underscores, '@', or periods with a length between 8 and 20 characters.";
+               
+                e.preventDefault(); 
+                return false; 
+            } else {
+                err.innerHTML = "&nbsp;";
             }
-			else{
-			 err.innerHTML = "&nbsp";
-			}
 		  }
 		  else if(e.id=="Password"){
 		   if (e.value.length > 14) {
